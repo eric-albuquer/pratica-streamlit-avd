@@ -1,0 +1,24 @@
+Atividade
+Com base na sua EDA, crie uma aplicação no Streamlit com dois dashboards.
+Dashboard 1: um "laboratório" de análise de distribuição e correlação
+Dashboard 2: KPIs e métricas voltadas a um público alvo determinado individualmente
+Teste do app publicado
+Abrir a aplicação em uma janela anônima
+Verificar se todos os widgets do painel respondem
+Verificar se os dois dashboards carregam utilizando as abas
+Verificar que não há vazamento de dados sensíveis
+Confirmar que adicionou o link do app no README do repositório
+Visuais Mínimos
+Painel lateral:
+1 seletor de variáveis 
+1 filtro de intervalo (slider) para excluir alguns valores da avaliação
+Dashboard 1:
+Um mapa de calor para correlação
+Um histograma por variável quantitativa avaliada
+Dashboard 2:
+3 a 5 métricas próprias no dashboard 2
+3 visuais (além das métricas) no dashboard 2
+Entregáveis Finais
+Link do repositório público completo: notebooks, app.py, entregas/ e prompts/
+Observar se o diretório entregas/ contém os dois rascunhos de dashboards solicitados!
+Link do app no README do repositório
