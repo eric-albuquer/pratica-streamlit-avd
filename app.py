@@ -1,6 +1,7 @@
 # [IA] Copilot – Esqueleto inicial do app.py
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -9,14 +10,49 @@ import streamlit as st
 st.set_page_config(page_title="Dashboard Airbnb", layout="wide")
 
 DATA_PATH = Path(__file__).parent / "Airbnb_Open_Data.csv"
+VARS_QUANT = [
+    "lat",
+    "long",
+    "Construction year",
+    "price",
+    "service fee",
+    "minimum nights",
+    "number of reviews",
+    "reviews per month",
+    "review rate number",
+    "calculated host listings count",
+    "availability 365",
+]
 
 
 @st.cache_data
 def carregar_dados(caminho: str) -> pd.DataFrame:
     df = pd.read_csv(caminho, low_memory=False)
+
+    for coluna in ("price", "service fee"):
+        if coluna in df.columns:
+            valores = df[coluna].astype("string").str.replace(r"[$,]", "", regex=True)
+            df[coluna] = pd.to_numeric(valores, errors="coerce")
+
+    df = df.drop(columns=["house_rules", "license"], errors="ignore")
+
+    colunas_quant_presentes = [coluna for coluna in VARS_QUANT if coluna in df.columns]
+    colunas_para_remover_nulos = [
+        coluna
+        for coluna in colunas_quant_presentes
+        if coluna != "reviews per month" and df[coluna].isna().any()
+    ]
+    if colunas_para_remover_nulos:
+        df = df.dropna(subset=colunas_para_remover_nulos).reset_index(drop=True)
+
+    if "minimum nights" in df.columns and not df["minimum nights"].empty:
+        q1, q3 = df["minimum nights"].quantile([0.25, 0.75])
+        limite_superior = q3 + 1.5 * (q3 - q1)
+        df = df[df["minimum nights"] <= limite_superior].reset_index(drop=True)
+
     if "price" in df.columns:
-        preco = df["price"].astype("string").str.replace(r"[$,]", "", regex=True)
-        df["price"] = pd.to_numeric(preco, errors="coerce")
+        df["price_log"] = np.log1p(df["price"])
+
     return df
 
 
@@ -74,7 +110,12 @@ aba_geral, aba_indicadores = st.tabs(
 with aba_geral:
     st.subheader("Distribuição e correlação")
 
-    colunas_numericas = df_filtrado.select_dtypes(include="number").columns.tolist()
+    colunas_numericas = [
+        coluna
+        for coluna in VARS_QUANT
+        if coluna in df_filtrado.columns
+        and pd.api.types.is_numeric_dtype(df_filtrado[coluna])
+    ]
     if colunas_numericas:
         variavel = st.selectbox("Variável para visualizar a distribuição", colunas_numericas)
         grafico_distribuicao = px.histogram(
@@ -86,15 +127,27 @@ with aba_geral:
     else:
         st.info("Não há colunas numéricas disponíveis com os filtros atuais.")
 
+    if {"room type", "price"}.issubset(df_filtrado.columns):
+        # [IA] Plotly Express – Sintaxe do gráfico de boxplot
+        grafico_boxplot = px.box(
+            df_filtrado,
+            x="room type",
+            y="price",
+            title="Price por room type",
+        )
+        st.plotly_chart(grafico_boxplot, width="stretch")
+    else:
+        st.info("As colunas 'room type' e 'price' são necessárias para exibir o boxplot.")
+
     if len(colunas_numericas) >= 2:
-        correlacao = df_filtrado[colunas_numericas].corr()
+        correlacao = df_filtrado[colunas_numericas].corr(method="spearman")
         grafico_correlacao = px.imshow(
             correlacao,
             aspect="auto",
             color_continuous_scale="RdBu",
             zmin=-1,
             zmax=1,
-            title="Correlação entre variáveis numéricas",
+            title="Correlação de Spearman entre variáveis quantitativas",
         )
         st.plotly_chart(grafico_correlacao, width="stretch")
     else:
