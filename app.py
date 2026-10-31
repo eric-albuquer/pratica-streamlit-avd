@@ -103,6 +103,18 @@ else:
     filtro_grupo = df["neighbourhood group"].astype("string").isin(grupos_selecionados)
     df_filtrado = df[filtro_grupo & filtro_preco]
 
+colunas_numericas = [
+    coluna
+    for coluna in VARS_QUANT
+    if coluna in df_filtrado.columns
+    and pd.api.types.is_numeric_dtype(df_filtrado[coluna])
+]
+if colunas_numericas:
+    variavel_selecionada = st.sidebar.selectbox(
+        "Variável quantitativa",
+        colunas_numericas,
+    )
+
 aba_geral, aba_indicadores = st.tabs(
     ["Análise Geral de Listagens", "Indicadores Chave"]
 )
@@ -110,34 +122,49 @@ aba_geral, aba_indicadores = st.tabs(
 with aba_geral:
     st.subheader("Distribuição e correlação")
 
-    colunas_numericas = [
-        coluna
-        for coluna in VARS_QUANT
-        if coluna in df_filtrado.columns
-        and pd.api.types.is_numeric_dtype(df_filtrado[coluna])
-    ]
     if colunas_numericas:
-        variavel = st.selectbox("Variável para visualizar a distribuição", colunas_numericas)
-        grafico_distribuicao = px.histogram(
+        # [IA] Plotly – Histograma de Distribuição de Preços
+        fig_histograma = px.histogram(
             df_filtrado,
-            x=variavel,
-            title=f"Distribuição de {variavel}",
+            x="price",
+            nbins=30,
+            labels={"price": "Price (US$)"},
         )
-        st.plotly_chart(grafico_distribuicao, width="stretch")
+        mediana_preco = df_filtrado["price"].dropna().median()
+        if pd.notna(mediana_preco):
+            fig_histograma.add_vline(
+                x=mediana_preco,
+                line_dash="dash",
+                annotation_text=f"Mediana: {mediana_preco:.2f}",
+            )
+        st.plotly_chart(fig_histograma, width="stretch")
+
+        grafico_variavel = px.histogram(
+            df_filtrado,
+            x=variavel_selecionada,
+            title=f"Distribuição de {variavel_selecionada}",
+        )
+        st.plotly_chart(grafico_variavel, width="stretch")
     else:
         st.info("Não há colunas numéricas disponíveis com os filtros atuais.")
 
-    if {"room type", "price"}.issubset(df_filtrado.columns):
-        # [IA] Plotly Express – Sintaxe do gráfico de boxplot
-        grafico_boxplot = px.box(
+    if {"neighbourhood group", "price"}.issubset(df_filtrado.columns):
+        # [IA] Plotly – Boxplot de Preço por Distrito
+        fig_boxplot = px.box(
             df_filtrado,
-            x="room type",
+            x="neighbourhood group",
             y="price",
-            title="Price por room type",
+            range_y=[0, 1200],
+            labels={
+                "neighbourhood group": "Neighbourhood group",
+                "price": "Price (US$)",
+            },
         )
-        st.plotly_chart(grafico_boxplot, width="stretch")
+        st.plotly_chart(fig_boxplot, width="stretch")
     else:
-        st.info("As colunas 'room type' e 'price' são necessárias para exibir o boxplot.")
+        st.info(
+            "As colunas 'neighbourhood group' e 'price' são necessárias para exibir o boxplot."
+        )
 
     if len(colunas_numericas) >= 2:
         correlacao = df_filtrado[colunas_numericas].corr(method="spearman")
@@ -154,5 +181,45 @@ with aba_geral:
         st.info("São necessárias ao menos duas colunas numéricas para exibir a correlação.")
 
 with aba_indicadores:
-    st.subheader("Indicadores Chave")
-    st.info("Espaço reservado para os cartões de KPIs que você definirá.")
+    # [IA] Streamlit & Plotly – Implementação de KPIs e Visuais de Precificação e Mercado
+    st.subheader("Visão de Precificação e Mercado")
+
+    colunas_kpi = st.columns(3)
+    metricas = (
+        ("Preço Médio por Noite", "price", "mean"),
+        ("Mediana de Preço", "price", "median"),
+        ("Taxa de Serviço Média", "service fee", "mean"),
+    )
+
+    for coluna_kpi, (titulo, coluna, calculo) in zip(colunas_kpi, metricas):
+        if coluna in df_filtrado.columns:
+            serie = df_filtrado[coluna].dropna()
+            valor = getattr(serie, calculo)() if not serie.empty else float("nan")
+            valor_formatado = f"R$ {valor:,.2f}" if pd.notna(valor) else "—"
+        else:
+            valor_formatado = "—"
+        coluna_kpi.metric(titulo, valor_formatado)
+
+    if {"neighbourhood group", "price"}.issubset(df_filtrado.columns):
+        fig_boxplot_precos = px.box(
+            df_filtrado,
+            x="neighbourhood group",
+            y="price",
+            range_y=[0, 1200],
+        )
+        st.plotly_chart(fig_boxplot_precos, width="stretch")
+
+    if "price" in df_filtrado.columns:
+        fig_histograma_precos = px.histogram(
+            df_filtrado,
+            x="price",
+            nbins=30,
+        )
+        mediana_preco = df_filtrado["price"].dropna().median()
+        if pd.notna(mediana_preco):
+            fig_histograma_precos.add_vline(
+                x=mediana_preco,
+                line_dash="dash",
+                annotation_text=f"Mediana: {mediana_preco:.2f}",
+            )
+        st.plotly_chart(fig_histograma_precos, width="stretch")
