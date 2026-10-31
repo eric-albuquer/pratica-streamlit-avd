@@ -182,51 +182,13 @@ with aba_geral:
 
 with aba_indicadores:
     # [IA] Streamlit & Plotly – Implementação de KPIs e Visuais de Precificação e Mercado
-    st.subheader("Visão de Precificação e Mercado")
-
-    colunas_kpi = st.columns(3)
-    metricas = (
-        ("Preço Médio por Noite", "price", "mean"),
-        ("Mediana de Preço", "price", "median"),
-        ("Taxa de Serviço Média", "service fee", "mean"),
+    st.subheader("Disponibilidade, Demanda e Engajamento dos Imóveis")
+    st.caption(
+        "Público-alvo: anfitriões e gestores de imóveis, investidores do mercado "
+        "imobiliário, analistas de mercado e consultores de hospitality."
     )
 
-    for coluna_kpi, (titulo, coluna, calculo) in zip(colunas_kpi, metricas):
-        if coluna in df_filtrado.columns:
-            serie = df_filtrado[coluna].dropna()
-            valor = getattr(serie, calculo)() if not serie.empty else float("nan")
-            valor_formatado = f"R$ {valor:,.2f}" if pd.notna(valor) else "—"
-        else:
-            valor_formatado = "—"
-        coluna_kpi.metric(titulo, valor_formatado)
-
-    if {"neighbourhood group", "price"}.issubset(df_filtrado.columns):
-        fig_boxplot_precos = px.box(
-            df_filtrado,
-            x="neighbourhood group",
-            y="price",
-            range_y=[0, 1200],
-        )
-        st.plotly_chart(fig_boxplot_precos, width="stretch")
-
-    if "price" in df_filtrado.columns:
-        fig_histograma_precos = px.histogram(
-            df_filtrado,
-            x="price",
-            nbins=30,
-        )
-        mediana_preco = df_filtrado["price"].dropna().median()
-        if pd.notna(mediana_preco):
-            fig_histograma_precos.add_vline(
-                x=mediana_preco,
-                line_dash="dash",
-                annotation_text=f"Mediana: {mediana_preco:.2f}",
-            )
-        st.plotly_chart(fig_histograma_precos, width="stretch")
-
     # [IA] Streamlit & Plotly – Implementação do Painel de Disponibilidade e Demanda
-    st.subheader("Disponibilidade, Demanda e Engajamento dos Imóveis")
-
     colunas_disponibilidade = st.columns(4)
     metricas_disponibilidade = (
         ("Disponibilidade Média", "availability 365", "dias", 0),
@@ -261,6 +223,46 @@ with aba_indicadores:
         "% Reserva Imediata",
         valor_reserva_imediata,
     )
+
+    coluna_taxa_servico = st.columns(4)[0]
+    if "service fee" in df_filtrado.columns:
+        taxas_servico = df_filtrado["service fee"].dropna()
+        taxa_servico_media = (
+            taxas_servico.mean() if not taxas_servico.empty else float("nan")
+        )
+        valor_taxa_servico = (
+            f"R$ {taxa_servico_media:,.2f}"
+            if pd.notna(taxa_servico_media)
+            else "—"
+        )
+    else:
+        valor_taxa_servico = "—"
+    coluna_taxa_servico.metric("Taxa de Serviço Média", valor_taxa_servico)
+
+    st.subheader("Visuais de Precificação e Mercado")
+    if {"neighbourhood group", "price"}.issubset(df_filtrado.columns):
+        fig_boxplot_precos = px.box(
+            df_filtrado,
+            x="neighbourhood group",
+            y="price",
+            range_y=[0, 1200],
+        )
+        st.plotly_chart(fig_boxplot_precos, width="stretch")
+
+    if "price" in df_filtrado.columns:
+        fig_histograma_precos = px.histogram(
+            df_filtrado,
+            x="price",
+            nbins=30,
+        )
+        mediana_preco = df_filtrado["price"].dropna().median()
+        if pd.notna(mediana_preco):
+            fig_histograma_precos.add_vline(
+                x=mediana_preco,
+                line_dash="dash",
+                annotation_text=f"Mediana: {mediana_preco:.2f}",
+            )
+        st.plotly_chart(fig_histograma_precos, width="stretch")
 
     colunas_scatter = {
         "availability 365",

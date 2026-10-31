@@ -1,21 +1,12 @@
-# **Declaração de Uso de Inteligência Artificial Generativa**
-
-**Atividade Streamlit AVD – 2026.2** \- Dashboards com Streamlit Aulas 21 a 23
-
-Preencha este documento individualmente, assine e entregue em PDF como prompts/DECLARACAO\_IA.pdf no repositório **e** no Classroom. A declaração é obrigatória **mesmo que o você não tenha usado IA** e deve estar **assinada** (manuscrita ou digital, ex.: gov.br). 
-
-Ela vale 0,5 ponto na rubrica da atividade; **declaração ausente ou sem assinatura \= nota ZERO no projeto**.
-
-Vale ressaltar que essa atividade é **individual**.
-
 # **1\. Identificação**
 
-| Turma | ☐ 5A      ☐ 5B |
-| :---- | :---- |
-| **Nome Completo** |  |
-| **E-mail** |  |
-| **Repositório (link)** |  |
-| **Data de entrega** |  |
+| Campo | Informação |
+|---|---|
+| Turma | ☒ 5A　☐ 5B |
+| Nome completo | Eric Gonçalves Albuquerque |
+| E-mail | ega2@cesar.school |
+| Repositório | https://github.com/eric-albuquer/pratica-streamlit-avd |
+| Data de entrega | 01/11/2026 |
 
 # **2\. Diretrizes (leiam antes de usar qualquer ferramenta)**
 
@@ -68,122 +59,55 @@ Na dúvida sobre se um uso é permitido, pergunte à professora **antes** de usa
 
 # **3\. Declaração geral (marque uma opção)**
 
-☐  **Não utilizei** nenhuma ferramenta de IA generativa em nenhuma etapa do projeto.
+☐ **Não utilizei** nenhuma ferramenta de IA generativa em nenhuma etapa do projeto.
 
-☐  **Utilizei** IA generativa, somente nas situações permitidas, e registrei todos os usos nas Seções 4 a 6 (links das conversas ou blocos de registro).
-
+☒ **Utilizei** IA generativa e registrei os usos abaixo. A Skill oficial do Streamlit não foi utilizada nesta sessão.
 # **4\. Ferramentas utilizadas**
 
-| Ferramenta  (ex.: ChatGPT, Copilot, Gemini, Claude) | Versão / plano | Em que parte da atividade (exemplo: esqueleto do app.py, Dashboard 2, deploy) |
-| :---- | :---- | :---- |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-
+| Ferramenta | Versão / plano | Parte da atividade |
+|---|---|---|
+| Copilot via SDK no VS Code | Versão/plano não identificado nesta sessão | Esqueleto e alterações do `app.py`, sintaxe Streamlit/Plotly, depuração, revisão de requisitos e estrutura de entregáveis |
 # **5\. Registro de usos**
 
-**Lembrete obrigatório:** se você usou a Skill oficial do Streamlit (streamlit skills) em qualquer momento, mesmo só para gerar o esqueleto do app.py, registre esse uso abaixo. Isso vale independentemente de qualquer outro uso de IA.
+**Forma escolhida: Opção B — registro bloco a bloco.** Os registros abaixo resumem os pedidos desta conversa; não são uma transcrição integral. O estudante deve conferir o histórico completo antes de assinar. A Skill oficial do Streamlit não foi utilizada.
 
-**Nota sobre ferramentas via linha de comando (CLI):** ferramentas de terminal costumam salvar o histórico de cada sessão localmente no seu computador, mesmo depois de fechar o terminal. Antes de declarar que não tem mais acesso aos prompts, verifique a pasta de sessões da ferramenta que você usou:
-
-> * **Claude Code:** rode claude \--resume (sem argumento) dentro da pasta do projeto para listar e reabrir sessões anteriores — os arquivos ficam salvos em \~/.claude/projects/. claude \--continue reabre a última sessão.
-
-> * **Codex CLI:** sessões salvas em \~/.codex/sessions/; use codex resume para reabrir.
-
-> * **Outras CLIs** (Copilot CLI, Gemini CLI etc.): procure a pasta de configuração/cache da ferramenta — o nome e o local variam por versão; consulte a documentação oficial se não encontrar.
-
-> * **VS Code (extensão oficial do Claude Code):** dentro do painel do Claude Code existe o botão “Session history”, com duas abas (Local e Remote). Clicando nele dá para buscar por palavra-chave ou navegar por data (Hoje, Ontem, Últimos 7 dias etc.) e reabrir qualquer conversa anterior com o histórico completo,  sem precisar do terminal.
-
-Se, depois de verificar o histórico local, a sessão realmente não existir mais, preencha a Opção B (bloco a bloco) com base na sua lembrança do que foi pedido, apoiando-se nas marcações \# \[IA\] deixadas no código e no histórico do Git (mensagens de commit, diffs) para reconstruir o que for possível. Em caso de dúvida sobre como preencher, procure a professora antes da entrega.
-
-**Escolha uma das duas formas de registro:**
-
-**Opção A (sugerida) – link ou arquivo de transcrição completa anexado.** 
-
-Compartilhe com a professora os links das conversas **completas** com a IA **ou**, se a ferramenta não gerar link (ex.: uso via CLI/terminal), anexe o arquivo de transcrição completa da sessão (ex.: .jsonl, .md ou .txt) e liste todos abaixo. Essa é a única forma de dispensar o preenchimento bloco a bloco. A professora e os monitores vão comparar as conversas (ou transcrições) com o que foi entregue.
-
-| Nº | Parte | Ferramenta | Link ou arquivo anexado |
-| :---- | :---- | :---- | :---- |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-
-**Opção B – registro bloco a bloco.** 
-
-Um bloco por uso relevante (copie o bloco quantas vezes for preciso). “Relevante” \= qualquer uso cujo resultado entrou, direta ou indiretamente, no código, nas saídas, nas figuras ou no PDF.
-
-| Uso nº 1 |  |
-| :---- | :---- |
-| **Data** |  |
-| **Ferramenta** |  |
-| **Parte da atividade (arquivo ou seção)** |  |
-| **Finalidade (qual item “Permitido” da Seção 2\)** |  |
-| **O que foi pedido (resumo do prompt)** |  |
-| **O que foi aproveitado da resposta da IA e o que foi modificado** |  |
-| **Como você verificou que estava correto** |  |
-| **Link ou anexo da conversa** |  |
-
-| Uso nº 2 |  |
-| :---- | :---- |
-| **Data** |  |
-| **Ferramenta** |  |
-| **Parte da atividade (arquivo ou seção)** |  |
-| **Finalidade (qual item “Permitido” da Seção 2\)** |  |
-| **O que foi pedido (resumo do prompt)** |  |
-| **O que foi aproveitado da resposta da IA e o que foi modificado** |  |
-| **Como você verificou que estava correto** |  |
-| **Data** |  |
-
-| Uso nº 3 |  |
-| :---- | :---- |
-| **Data** |  |
-| **Ferramenta** |  |
-| **Parte da atividade (arquivo ou seção)** |  |
-| **Finalidade (qual item “Permitido” da Seção 2\)** |  |
-| **O que foi pedido (resumo do prompt)** |  |
-| **O que foi aproveitado da resposta da IA e o que foi modificado** |  |
-| **Como você verificou que estava correto** |  |
-| **Data** |  |
-
-| Uso nº 4 |  |
-| :---- | :---- |
-| **Data** |  |
-| **Ferramenta** |  |
-| **Parte da atividade (arquivo ou seção)** |  |
-| **Finalidade (qual item “Permitido” da Seção 2\)** |  |
-| **O que foi pedido (resumo do prompt)** |  |
-| **O que foi aproveitado da resposta da IA e o que foi modificado** |  |
-| **Como você verificou que estava correto** |  |
-| **Data** |  |
-
+| Uso / data | Parte e finalidade permitida | Pedido resumido | O que foi aproveitado / modificado | Verificação |
+|---|---|---|---|---|
+| 1 — 30/10/2026 | `app.py`; esqueleto a partir do layout fornecido | Montar estrutura Streamlit com filtros, abas, cache, histogramas e correlação. | Esqueleto inicial adaptado ao layout solicitado. | `py_compile`; inspeção do arquivo. |
+| 2 — 30/10/2026 | `app.py`; depuração | Explicar avisos de execução fora do runtime Streamlit e avisos de Pandas/Streamlit. | Orientação de execução com `streamlit run`; leitura com `low_memory=False` e parâmetro de largura atualizado. | `py_compile`; execução de teste Streamlit. |
+| 3 — 31/10/2026 | `app.py`; sintaxe de gráfico Plotly | Sintaxe de boxplot e aplicação no app; depois histograma e boxplot por distrito com eixo visual limitado. | Gráficos conforme especificações fornecidas pelo estudante. | `py_compile` e `AppTest`. |
+| 4 — 31/10/2026 | `app.py`; tratamento com Pandas e correlação | Conferir a EDA e reproduzir conversão de preços, remoção de colunas, tratamento de nulos e correlação. | Tratamentos observados no notebook; correlação Spearman sobre variáveis quantitativas listadas. | Conferência do notebook, `py_compile` e `AppTest`. |
+| 5 — 31/10/2026 | `app.py`; limpeza de dados | Remover extremos em `minimum nights`. | Aplicação do limite superior pela regra IQR. | Checagem do limite no CSV, `py_compile` e `AppTest`. |
+| 6 — 31/10/2026 | `app.py`/requisitos; revisão técnica | Comparar a aplicação ao `requisitos.txt` e identificar itens pendentes sem escolher métricas. | Lista de pendências; decisão de métricas solicitada ao estudante. | Comparação direta com `requisitos.txt`. |
+| 7 — 31/10/2026 | Dashboard 2; sintaxe Streamlit/Plotly | Implementar cartões e visuais de precificação e disponibilidade conforme especificações do estudante. | Implementação dos cálculos e gráficos informados; o estudante selecionou depois quais cinco métricas manter. | `py_compile` e `AppTest`. |
+| 8 — 31/10/2026 | `entregas/`, `prompts/`, README e declaração | Completar os arquivos exigidos e adequar o número de métricas ao requisito. | Estruturas de rascunhos/README/registro; público-alvo e cinco métricas fornecidos pelo estudante; justificativas pessoais ficaram para preenchimento individual. | Revisão do diff e testes locais. |
 # **6\. Trechos de código feitos com apoio de IA**
 
-Esta seção é mais simples do que em outros projetos: o esqueleto do app.py gerado com apoio de IA (via Template de Prompt e/ou Skill do Streamlit) é uma etapa prevista da atividade, não uma exceção a justificar linha a linha. Basta marcar abaixo onde houve apoio de IA em algum nível, o detalhamento de cada uso continua nas Seções 4 e 5\.
-
-| Arquivo / parte | Teve apoio de IA? | Tipo de apoio  (ex.: esqueleto via Skill, sintaxe de gráfico, depuração) |
-| :---- | :---- | :---- |
-| app.py (esqueleto) | ☐ Sim ☐ Não |  |
-| Dashboard 1 (correlação \+ distribuição) | ☐ Sim ☐ Não |  |
-| Dashboard 2 (KPIs) | ☐ Sim ☐ Não |  |
-| Deploy / configuração | ☐ Sim ☐ Não |  |
-|  | ☐ Sim ☐ Não |  |
-
+| Arquivo / parte | Teve apoio de IA? | Tipo de apoio |
+|---|---|---|
+| `app.py` (esqueleto e tratamentos) | ☒ Sim ☐ Não | Estrutura inicial, sintaxe Streamlit/Pandas e depuração. |
+| Dashboard 1 (correlação e distribuição) | ☒ Sim ☐ Não | Sintaxe dos gráficos e integração com filtros. |
+| Dashboard 2 (KPIs e visuais) | ☒ Sim ☐ Não | Implementação das métricas e gráficos escolhidos/especificados pelo estudante. |
+| Deploy / configuração | ☐ Sim ☒ Não | O app ainda não foi publicado. |
+| Skill oficial do Streamlit | ☐ Sim ☒ Não | Não utilizada nesta sessão. |
 # **7\. Reflexão individual (8 a 15 linhas)**
 
-Onde a IA ajudou? Em algum momento ela sugeriu uma métrica, um gráfico ou uma interpretação que você teve que ajustar ou rejeitar? Como você garantiu que as métricas do Dashboard 2 refletem sua própria escolha e validação, e não apenas o que a IA sugeriu?
+**PREENCHIMENTO INDIVIDUAL OBRIGATÓRIO — escreva de 8 a 15 linhas com sua própria reflexão.** A IA não redigiu esta reflexão.
 
-|  |
-| :---- |
-
+1. [Escreva aqui.]
+2. [Escreva aqui.]
+3. [Escreva aqui.]
+4. [Escreva aqui.]
+5. [Escreva aqui.]
+6. [Escreva aqui.]
+7. [Escreva aqui.]
+8. [Escreva aqui.]
 # **8\. Termo de responsabilidade**
 
-Declaro que as informações deste documento são verdadeiras e completas; que **compreendo e sei explicar** todo o código, as saídas e as análises entregues, inclusive os trechos feitos com apoio de IA; e que estou ciente de que uso não declarado, uso proibido, Skill não declarada, ou incapacidade de explicar o trabalho resultam nas consequências da Seção 2\.
+**PENDENTE:** leia e confirme o termo abaixo. Assine somente depois de completar a reflexão e verificar que todas as declarações são verdadeiras.
 
-| Nome | Assinatura (manuscrita ou gov.br) | Data |
-| :---- | :---- | :---- |
-|  |  |  |
+Declaro que as informações deste documento são verdadeiras e completas; que compreendo e sei explicar todo o código, as saídas e as análises entregues, inclusive os trechos feitos com apoio de IA; e que estou ciente das consequências descritas na Seção 2.
 
+| Nome | Assinatura (manuscrita ou gov.br) | Data da assinatura |
+|---|---|---|
+| Eric Gonçalves Albuquerque | **[ASSINATURA DO ESTUDANTE PENDENTE]** | **[PREENCHER]** |
