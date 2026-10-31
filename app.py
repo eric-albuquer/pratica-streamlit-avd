@@ -223,3 +223,72 @@ with aba_indicadores:
                 annotation_text=f"Mediana: {mediana_preco:.2f}",
             )
         st.plotly_chart(fig_histograma_precos, width="stretch")
+
+    # [IA] Streamlit & Plotly – Implementação do Painel de Disponibilidade e Demanda
+    st.subheader("Disponibilidade, Demanda e Engajamento dos Imóveis")
+
+    colunas_disponibilidade = st.columns(4)
+    metricas_disponibilidade = (
+        ("Disponibilidade Média", "availability 365", "dias", 0),
+        ("Avaliações/Mês (Média)", "reviews per month", "", 2),
+        ("Estadia Mínima Média", "minimum nights", "noites", 1),
+    )
+
+    for coluna_kpi, (titulo, coluna, unidade, casas_decimais) in zip(
+        colunas_disponibilidade[:3],
+        metricas_disponibilidade,
+    ):
+        if coluna in df_filtrado.columns:
+            valores = df_filtrado[coluna].dropna()
+            valor = valores.mean() if not valores.empty else float("nan")
+            valor_formatado = (
+                f"{valor:.{casas_decimais}f} {unidade}".strip()
+                if pd.notna(valor)
+                else "—"
+            )
+        else:
+            valor_formatado = "—"
+        coluna_kpi.metric(titulo, valor_formatado)
+
+    if "instant_bookable" in df_filtrado.columns and not df_filtrado.empty:
+        percentual_reserva_imediata = (
+            (df_filtrado["instant_bookable"] == True).mean() * 100
+        )
+        valor_reserva_imediata = f"{percentual_reserva_imediata:.1f}%"
+    else:
+        valor_reserva_imediata = "—"
+    colunas_disponibilidade[3].metric(
+        "% Reserva Imediata",
+        valor_reserva_imediata,
+    )
+
+    colunas_scatter = {
+        "availability 365",
+        "number of reviews",
+        "room type",
+    }
+    if colunas_scatter.issubset(df_filtrado.columns):
+        fig_disponibilidade_avaliacoes = px.scatter(
+            df_filtrado,
+            x="availability 365",
+            y="number of reviews",
+            color="room type",
+            title="Disponibilidade no Ano vs. Número de Avaliações por Tipo de Quarto",
+        )
+        st.plotly_chart(fig_disponibilidade_avaliacoes, width="stretch")
+
+    colunas_barras = {"neighbourhood group", "availability 365"}
+    if colunas_barras.issubset(df_filtrado.columns):
+        disponibilidade_por_distrito = (
+            df_filtrado.groupby("neighbourhood group", as_index=False)[
+                "availability 365"
+            ]
+            .mean()
+        )
+        fig_disponibilidade_distrito = px.bar(
+            disponibilidade_por_distrito,
+            x="neighbourhood group",
+            y="availability 365",
+            title="Média de Dias Disponíveis no Ano por Distrito",
+        )
+        st.plotly_chart(fig_disponibilidade_distrito, width="stretch")
